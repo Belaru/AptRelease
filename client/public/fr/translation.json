@@ -1,0 +1,100 @@
+{
+    "Home": {
+      "welcome": "BIENVENUE SUR",
+      "searchbtn": "Commencer la recherche",
+      "montrealleases": "Voir les locations à Montréal",
+      "torontoleases": "Voir les locations à Toronto",
+      "vancouverlleases": "Voir les locations à Vancouver"
+    },
+    "About": {
+        "aboutus": "À propos de nous",
+        "text": "Notre plateforme sert de liaison entre les locataires qui souhaitent quitter leur logement et les personnes à la recherche de l'endroit idéal pour s'installer. Que vous souhaitiez déménager pour un emploi, passer à un logement plus grand ou réduire la taille de votre demeure, ReLease est là pour assurer une transition en douceur et sans tracas."
+    },
+    "Contact": {
+        "contactinfo": "Informations de contact",
+        "text": "Merci de votre intérêt ! N'hésitez pas à nous contacter si vous avez des questions ou si vous souhaitez obtenir plus d'informations.",
+        "email": "Courriel:",
+        "phone": "Téléphone:"
+    },
+    "Nav": {
+        "home": "Accueil",
+        "about": "À propos",
+        "contact": "Contact",
+        "profil": "Profil",
+        "close": "Fermer",
+        "menu": "Menu"
+    },
+    "Profil": {
+        "welcome": "Bienvenue,",
+        "post": "Afficher une inscription",
+        "logout": "Déconnexion",
+        "yourleases": "Vos offres de location:",
+        "posteddate": "Date d'affichage:",
+        "address": "Adresse:",
+        "price": "Prix du loyer:",
+        "viewlisting": "Voir l'inscription"
+    },
+    "Post": {
+        "title": "Créer votre annonce",
+        "rentprice": "Prix du loyer",
+        "address": "Adresse",
+        "city": "Ville",
+        "size": "Surface (pi. ca.)",
+        "beds": "Nombre de chambres",
+        "baths": "Nombre de salles de bain",
+        "floor": "Étage",
+        "furnishing": "Ameublement",
+        "unfur": "Non meublé",
+        "semifur": "Semi-meublé",
+        "fur": "Meublé",
+        "tenants": "Locataires souhaités",
+        "desc": "Description",
+        "contact": "Information de contact",
+        "imgs": "Images",
+        "submit": "Soumettre",
+        "errmsg": "Veuillez naviguer vers cette page à partir de votre page de profil"
+
+    },
+    "Footer": {
+        "credit": "Crédits pour ReLease 2024 :",
+        "links": "Liens rapides",
+        "viewapts": "Voir les appartements",
+        "policy": "Politique : Nous ne sommes pas responsables des locations publiées par les utilisateurs. Si vous trouvez un affichage inapproprié, n'hésitez pas à le signaler."
+    },
+    "AptsList": {
+        "aptlocation": "appartement situé au",
+        "price": "{{apartmentPrice}}$ par mois"
+    },
+    "Filter": {
+        "order": "Trier par:",
+        "select": "Sélectionner",
+        "lowest": "Prix le plus bas",
+        "highest": "Prix le plus élevé",
+        "filters": "Filtres",
+        "search": "Rechercher...",
+        "clear": "Effacer les filtres",
+        "city": "*Ville",
+        "furnishing": "Ameublement",
+        "all": "Tous",
+        "min": "Prix minimum:",
+        "max": "Prix maximum:",
+        "baths": "Salles de bain:",
+        "beds": "Chambres:",
+        "apply": "Appliquer"
+    },
+    "Apt": {
+        "postdate": "Date d'affichage",
+        "moreinfo": "Pour plus d'informations, cliquez sur le bouton ci-dessous pour contacter l'annonceur.",
+        "interested": "Intéressé",
+        "readtxt": "Lire le texte",
+        "problems": "Des problèmes liés à cette annonce?",
+        "report": "signaler",
+        "msg": "Merci! Vous avez transmis votre rapport."
+
+    },
+    
+    "apartmentInfo": "Appartement {{furnishing}} situé au {{address}}, {{city}}",
+
+      
+    "date": "Today is {{date, DATE_HUGE}}"
+  }

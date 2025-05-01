@@ -1,0 +1,125 @@
+/* Apartment.css */
+
+#apartment-information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+    padding: 2rem;
+  }
+  
+  .apt-info {
+    width: 45%;
+  }
+  
+  #apartment-images-slider {
+    width: 50%;
+  }
+  
+  .apt-info {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h3 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    color: #555;
+    font-size: 1.2em;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  h6 {
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  button {
+    background-color: #272c28;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: rgb(100, 107, 101);
+  }
+  
+.box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-shadow: 24px;
+  padding: 16px;
+}
+ 
+#service-tools{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+#service-tools button{
+  background-color: rgb(22, 32, 167);
+  font-weight: bold;
+  height: 50%;
+}
+
+#service-tools button:hover{
+  background-color: rgb(12, 133, 208);
+}
+
+#report-space{
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#report-message{
+  color: rgb(101, 20, 20);
+}
+
+#service-tools #report-btn{
+  background-color: rgb(122, 5, 5);
+  color: white;
+  font-style: italic;
+}
+
+#service-tools #report-btn:hover{
+  background-color: rgb(168, 26, 26);
+}
+@media screen and (max-width: 960px){
+  #apartment-images-slider{
+    width: auto;
+  }
+  #apartment-information{
+    display: block;
+  }
+  .apt-info{
+    width: auto;
+  }
+  #map-container{
+    height: 200px;
+    width: 250px;
+  }
+  .speech-button{
+    width:120px;
+  }
+
+}

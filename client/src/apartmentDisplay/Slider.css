@@ -1,0 +1,30 @@
+.slide-container {
+    width: 50%;
+    margin: 0;
+  }
+  
+  .slide-image {
+    display: flex;
+    justify-content: center;
+    background-color: grey;
+  }
+  #apartment-images-slider{
+    width: '50%';
+    margin: '0';
+    padding-bottom: 10rem;
+  }
+  .slide-image-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 500px;
+    width: 80%;
+    margin: 0;
+  }
+  @media screen and (max-width: 960px){
+    #apartment-images-slider{
+      width: auto;
+      padding-bottom: 0;
+    }
+  }

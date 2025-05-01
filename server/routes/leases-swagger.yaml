@@ -1,0 +1,584 @@
+openapi: 3.1.0
+info:
+  title: Leases-server
+  version: 1.0.0
+  description: Leases API.
+paths:
+  /leases/:
+    get:
+      summary: Retrieve all leases.
+      description: Displays all leases.
+      responses:
+        200:
+            description: The list of apartments.
+            content:
+              application/json:
+                example:
+                  response:
+                    - _id: "65fb6e373a656543cdc07c29"
+                      postedDate: "2024-02-26"
+                      bhk: 2
+                      rentPrice: 1790
+                      size: 800
+                      floor: "1 out of 3"
+                      address: "191 Rouge Rd, Winnipeg, MB R3K 1J6"
+                      city: "Winnipeg"
+                      furnishing: "Semi-Furnished"
+                      preferredTentant: "Bachelors/Family"
+                      bathroom: 1
+                      pointOfContact: "Contact Owner"
+                      description: null
+                      images:
+                        - "https://azure2134398.blob.core.windows.net/test/537235380514029719.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/942702830658867919.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/3223505816210159731.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/718.jpg"
+                      reports: 1
+                    - _id: "65fb6e373a656543cdc07c2f"
+                      postedDate: "2024-01-15"
+                      bhk: 2
+                      rentPrice: 1730
+                      size: 900
+                      floor: "Ground out of 2"
+                      address: "314 Badgeley Ave, Ottawa, ON K2T 0A7"
+                      city: "Ottawa"
+                      furnishing: "Semi-Furnished"
+                      preferredTentant: "Bachelors"
+                      bathroom: 1
+                      pointOfContact: "Contact Owner"
+                      description: null
+                      images:
+                        - "https://azure2134398.blob.core.windows.net/test/558448978082769337.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/601714399261708336.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/717.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/3224815047740630133.jpg"
+                      reports: 0
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LeaseObject'
+        400:
+          description: Invalid query paramater value input.
+          content:
+            application/json:
+              example:
+                status: error
+                message: 'not supported in api'
+              schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: rejected
+                message:
+                  type: string
+                  description: specifies invalid input
+  /leases/{city}:
+    get:
+      summary: Retrieve filtered leases.
+      description: Displays leases filtered by city (mandatory) and other queries.
+      parameters:
+        - in: path
+          name: city
+          required: true
+          description: The city location of the leases.
+          schema:
+            type: string
+        - in: path
+          name: furnishing
+          required: false
+          description: The furnishing description of the apartment
+          schema:
+            type: string
+        - in: path
+          name: area
+          required: false
+          description: The area location inside the city of the lease.
+          schema:
+            type: string
+        - in: path
+          name: bathroom
+          required: false
+          description: The number of the bathrooms in the apartment.
+          schema:
+            type: integer
+        - in: path
+          name: bedroom
+          required: false
+          description: The number of the bedrooms in the apartment.
+          schema:
+            type: integer
+        - in: path
+          name: rentMinimum
+          required: false
+          description: The minimum rent price of the apartment.
+          schema:
+            type: integer
+        - in: path
+          name: rentMaximum
+          required: false
+          description: The maximum rent price of the apartment.
+          schema:
+            type: integer
+          name: sizeMinimum
+          required: false
+          description: The minimum size of the apartment in squarefoot.
+          schema:
+            type: integer
+        - in: path
+          name: rentMaximum
+          required: false
+          description: The maximum size of the apartment in squarefoot.
+          schema:
+            type: integer
+      responses:
+        200:
+            description: The list of filtered apartments.
+            content:
+              application/json:
+                example:
+                  response:
+                    - _id: "65fb6e373a656543cdc07c29"
+                      postedDate: "2024-02-26"
+                      bhk: 2
+                      rentPrice: 1790
+                      size: 800
+                      floor: "1 out of 3"
+                      address: "191 Rouge Rd, Winnipeg, MB R3K 1J6"
+                      city: "Winnipeg"
+                      furnishing: "Semi-Furnished"
+                      preferredTentant: "Bachelors/Family"
+                      bathroom: 1
+                      pointOfContact: "Contact Owner"
+                      description: null
+                      images:
+                        - "https://azure2134398.blob.core.windows.net/test/537235380514029719.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/942702830658867919.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/3223505816210159731.jpg"
+                        - "https://azure2134398.blob.core.windows.net/test/718.jpg"
+                      reports: 1
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LeaseObject'
+        400:
+          description: Invalid query paramater value input.
+          content:
+            application/json:
+              example:
+                status: error
+                message: Rent values must be non-negative integers
+              schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: rejected
+                message:
+                  type: string
+                  description: specifies invalid input
+  /leaseDelete/{leaseId}:
+    delete:
+      summary: Delete a lease by a specific id.
+      parameters:
+        - in: path
+          name: leaseId
+          required: true
+          description: The ID of the lease to delete.
+          schema:
+            type: string
+      responses:
+        200:
+            description: Delete succeeded.
+            content:
+              application/json:
+                example:
+                  response:
+                      message: Lease deleted successfully
+        400:
+            description: Invalid apartment post ID.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: Invalid ID format
+        404:
+            description: User not found.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: User not found
+        500:
+            description: Internal server error.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: Internal server error
+  /leaseReport/{leaseId}:
+    post:
+      summary: Increment reports field of a lease.
+      description: Increment the reports field of a lease identified by the provided ID.
+      parameters:
+        - in: path
+          name: leaseId
+          required: true
+          description: The ID of the lease to report.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Reports field incremented successfully.
+          content:
+            application/json:
+                example:
+                  response:
+                      message: Reports field incremented successfully
+        400:
+            description: Invalid apartment post ID.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: Invalid ID format
+        404:
+            description: Lease not found.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: Lease not found
+        500:
+            description: Internal server error.
+            content:
+              application/json:
+                example:
+                  response:
+                      error: Internal server error
+  /userProfile/{email}:
+    get:
+      summary: Retreives a user profile object.
+      description: Display a user profile object if it is saved in the database and all the leases listed by this user.
+      parameters:
+        - in: path
+          name: email
+          required: true
+          description: the user email
+          schema: 
+            type: string
+      responses:
+        200:
+          description: the user profile object
+          content:
+            application/json:
+              example:
+                response:
+                  - _id: new ObjectId('660186770a4110fe60916293')
+                    name: 'Jack Smith'
+                    email: 'jack.smith@gmail.com'
+                    picture: 'https://lh3.googleusercontent.com/a/AGk3ocINPEgk6sOy4d1WEmhIJBg49CFXYAdY5P9zTOMx8wgY=s96-c'
+                    leases: []
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: Unique identifier for the user profile
+                  name:
+                    type: string
+                    description: user name
+                  email:
+                    type: string
+                    format: email
+                    description: user email
+                  picutre:
+                    type: string
+                    descriptions: user picture
+                  leases:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LeaseObject'
+        404:
+          description: Invalid query parameter value input
+          content:
+            application/json:
+              example:
+                error: User not found
+              schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: rejected
+                message:
+                  type: string
+                  description: specifies invalid input
+  /leaseUpload/:
+    post:
+      summary: Uploads lease information with property details and images.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data: # Assuming files are uploaded as form-data
+            schema:
+              type: object
+            properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address.
+                  required: true
+                bedrooms:
+                  type: integer
+                  description: Number of bedrooms in the property.
+                  required: true
+                rentPrice:
+                  type: number
+                  format: float
+                  description: Monthly rent price.
+                  required: true
+                size:
+                  type: number
+                  format: float
+                  description: Size of the property in square feet.
+                  required: true
+                floorNumber:
+                  type: integer
+                  description: Floor number of the property.
+                  required: true
+                address:
+                  type: string
+                  description: Physical address of the property.
+                  required: true
+                city:
+                  type: string
+                  description: City where the property is located.
+                  required: true
+                furnishing:
+                  type: string
+                  description: Furnishing status of the property (e.g., furnished, semi-furnished, unfurnished).
+                  required: true
+                preferredTentant:
+                  type: string
+                  description: Preferred tenant type (e.g., family, bachelor).
+                  required: true
+                bathrooms:
+                  type: integer
+                  description: Number of bathrooms in the property.
+                  required: true
+                contactInfo:
+                  type: string
+                  description: Contact information for the point of contact.
+                  required: true
+                description:
+                  type: string
+                  description: Detailed description of the property.
+                  required: true
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Image files of the property.
+                  required: true
+      responses:
+        '200':
+          description: Lease information successfully uploaded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/LeaseObject'
+        '400':
+          description: Validation failed. Invalid property details provided.
+          content:
+            application/json:
+              example:
+                error: Validation failed. Please provide valid property details.
+              schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: rejected
+                message:
+                  type: string
+                  description: specifies invalid input
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              example:
+                error: User not found.
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              example:
+                error: Internal server error
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /filters/{filter}:
+    get:
+      summary: Retrieves a list of items based on a specified filter.
+      description: This endpoint allows clients to retrieve a list of items filtered according to the specified criteria. The filter criteria is passed as a path parameter.
+      parameters:
+        - in: path
+          name: filter
+          required: true
+          schema:
+            type: string
+          description: The filter criteria to apply when retrieving the list of items.
+      responses:
+        '200':
+          description: Successfully retrieved the filtered list.
+          content:
+            application/json:
+              example:
+                response:
+                  - "Furnished"
+                  - "Semi-Furnished"
+                  - "Unfurnished"
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      type: string
+                    description: The filtered list of items.
+        '400':
+          description: The request was malformed or the specified filter is not supported in the API.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message detailing why the request failed.
+  /coordinate/{address}:
+    get:
+      summary: Retrieves the geographical coordinates of a given address.
+      description: This endpoint queries an external geocoding service to fetch the geographical coordinates (latitude and longitude) for a specified address. The address is passed as a URL path parameter and must be properly encoded.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: The address for which to retrieve geographical coordinates. The address should be URL encoded.
+      responses:
+        '200':
+          description: Successfully retrieved the coordinates for the specified address.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  coordinates:
+                    type: array
+                    items:
+                      type: number
+                    description: An array containing the longitude and latitude of the specified address.
+                    example: [-74.0059413, 40.7127837]
+        '400':
+          description: The request was malformed, or the specified address's coordinates could not be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message detailing why the request failed or the address was not found.
+  
+components:
+  schemas:
+    LeaseObject:
+      type: object
+      properties:
+        postedDate:
+          type: string
+          format: date
+        bhk:
+          type: integer
+        rentPrice:
+          type: number
+        size:
+          type: number
+        floor:
+          type: integer
+        address:
+          type: string
+        city:
+          type: string
+        furnishing:
+          type: string
+        preferredTentant:
+          type: string
+        bathroom:
+          type: integer
+        pointOfContact:
+          type: string
+        description:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+paths:
+  /leaseDelete/{leaseId}:
+    delete:
+      summary: Delete a lease by a specific id.
+      parameters:
+        - in: path
+          name: leaseId
+          required: true
+          description: The ID of the lease to delete.
+          schema:
+            type: string
+      responses:
+        200:
+            description: Delete succeeded.
+            content:
+              application/json:
+                example:
+                  response:
+                    - status: 200
+                      message: Lease deleted successfully
+        400:
+            description: Invalid apartment post ID.
+            content:
+              application/json:
+                example:
+                  response:
+                    - status: 400
+                      error: Invalid ID format
+        404:
+            description: User not found.
+            content:
+              application/json:
+                example:
+                  response:
+                    - status: 404
+                      error: User not found
+        500:
+            description: Internal server error.
+            content:
+              application/json:
+                example:
+                  response:
+                    - status: 500
+                      error: Internal server error

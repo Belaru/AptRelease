@@ -1,0 +1,156 @@
+/* Container for the profile page */
+.profil {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+  
+/* Heading styles */
+.profil h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+  
+/* Navigation link styles */
+.nav-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+  
+.nav-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+  
+.nav-link:hover {
+    background-color: #ddd;
+}
+
+
+  
+/* Logout button styles */
+.logout-button {
+    border: none;
+    outline: none;
+    background-color: #dc3545;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.logout-button:hover {
+    background-color: #c8233383;
+}
+  
+/* User info container */
+.user-info {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
+  
+.user-info p {
+    font-size: 18px;
+    color: #333;
+}
+  
+/* Login button styles */
+.login-button {
+    margin-top: 20px;
+    text-align: center;
+}
+  
+/* Google login button styles */
+.google-login-button {
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.google-login-button:hover {
+    background-color: #357ae8;
+}
+@media screen and (max-width: 960px){
+    .profil{
+        margin:1rem;
+    }
+}
+.post-listing-btn {
+    background-color: #78b01e; 
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .post-listing-btn:hover {
+    background-color: rgb(120, 173, 94);
+  }
+
+.user-leases {
+    margin-top: 20px;
+}
+
+.lease-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lease-details {
+    flex: 1;
+}
+
+.lease-info {
+    margin: 5px 0;
+}
+
+.view-listing-btn {
+    background-color:  #272d29;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-listing-btn:hover {
+    background-color: #555;
+}
+
+h3 {
+    padding-top: 10px;
+}
+
+i {
+    padding-left: 5px;
+}

@@ -1,0 +1,100 @@
+{
+    "Home": {
+        "welcome": "WELCOME TO",
+        "searchbtn": "Start Searching",
+        "montrealleases": "View Montreal Leases",
+        "torontoleases": "View Toronto Leases",
+        "vancouverlleases": "View Vancouver Leases"
+    },
+    "About": {
+        "aboutus": "About us",
+        "text": "Our platform serves as a bridge between tenants looking to vacate their current rental properties and people searching for the perfect place to call home. Whether you want to relocate for a job, upgrade to a larger space, or downsize to a cozier home, ReLease is here to make the transition smooth and hassle-free."
+    },
+    "Contact": {
+        "contactinfo": "Contact Information",
+        "text": "Thank you for your interest! Feel free to reach out to us if you have any questions or would like more information.",
+        "email": "Email:",
+        "phone": "Phone:"
+    },
+    "Nav": {
+        "home": "Home",
+        "about": "About",
+        "contact": "Contact",
+        "profil": "Profil",
+        "close": "Close",
+        "menu": "Menu"
+    },
+    "Profil": {
+        "welcome": "Welcome,",
+        "post": "Post Listing",
+        "logout": "Logout",
+        "yourleases": "Your leases:",
+        "posteddate": "Posted Date:",
+        "address": "Address:",
+        "price": "Rent Price:",
+        "viewlisting": "View Listing"
+    },
+    "Post": {
+        "title": "Create Your Listing",
+        "rentprice": "Rent Price",
+        "address": "Address",
+        "city": "City",
+        "size": "Size (sq. ft.)",
+        "beds": "Number of Bedrooms",
+        "baths": "Number of Bathrooms",
+        "floor": "Floor Number",
+        "furnishing": "Furnishing",
+        "unfur": "Unfurnished",
+        "semifur": "Semi-Furnished",
+        "fur": "Furnished",
+        "tenants": "Preffered Tenants",
+        "desc": "Description",
+        "contact": "Contact Information",
+        "imgs": "Images",
+        "submit": "Submit",
+        "errmsg": "Please navigate to this page through your profil page"
+    },
+    "Footer": {
+        "credit": "Credits for ReLease 2024:",
+        "links": "Quick Links",
+        "viewapts": "View Apartments",
+        "policy": "Policy: We are not responsible for any leases posted by users. If you find a post inappropriate, feel free to report it."
+    },
+    "AptsList": {
+        "aptlocation": "apartment located at",
+        "price": "${{apartmentPrice}}/month"
+    },
+    "Filter": {
+        "order": "Order by:",
+        "select": "Select",
+        "lowest": "Lowest Price",
+        "highest": "Highest Price",
+        "filters": "Filters",
+        "search": "Search Leases...",
+        "clear": "Clear Filters",
+        "city": "*City",
+        "furnishing": "Furnishing",
+        "all": "All",
+        "min": "Minimum Rent price:",
+        "max": "Maximum Rent price:",
+        "baths": "Bathrooms:",
+        "beds": "Bedrooms:",
+        "apply": "Apply"
+    },
+    "Apt": {
+        "postdate": "Listing post date",
+        "moreinfo": "For more information, click the button below to contact the lister.",
+        "interested": "Interested",
+        "readtxt": "Read Text",
+        "problems": "Any problems in this posting?",
+        "report": "report",
+        "msg": "Thank you! You've submitted your report."
+
+    },
+
+    "apartmentInfo": "{{furnishing}} {{aptLocation}} {{address}}, {{city}}",
+
+    
+
+    "date": "Today is {{date, DATE_HUGE}}"
+}

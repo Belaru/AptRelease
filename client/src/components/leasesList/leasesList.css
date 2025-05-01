@@ -1,0 +1,35 @@
+#filter-label{
+    padding-right:7rem;
+}
+.card-body{
+    text-align: start;
+}
+.card-icon{
+    margin-right: 10px;
+}
+.card-image{
+    height: 280px;
+}
+.lease-list{
+    display:grid;
+    grid-template-columns: 400px 400px 400px;
+    grid-column-gap: 50px;
+}
+.pagination-div{
+    justify-content: center;
+    padding:3rem;
+}
+@media screen and (max-width: 1200px){
+    .lease-list{
+        grid-template-columns: 400px 400px;
+    }
+}
+@media screen and (max-width: 960px){
+    .lease-list{
+        display: block;
+    }
+    .pagination-div{
+        text-align: normal;
+        padding:1.5rem 1.5rem 2.5rem 1.5rem;
+    }
+}

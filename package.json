@@ -1,0 +1,29 @@
+{
+  "name": "release-project",
+  "version": "1.0.0",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "cd server && node bin/www",
+    "prod": "npm run build && npm run start",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "seed": "cd server && node utils/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project/issues"
+  },
+  "homepage": "https://gitlab.com/csy3dawson23-24/620/section-2/TeamB-620-2024-2/release-project#readme",
+  "dependencies": {
+    "i18next": "^23.10.1",
+    "i18next-browser-languagedetector": "^7.2.1",
+    "react-i18next": "^14.1.0"
+  }
+}
