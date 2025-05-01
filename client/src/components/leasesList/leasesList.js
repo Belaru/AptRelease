@@ -10,7 +10,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   const { t } = useTranslation();
 
   const location = useLocation();
-  const [cityParam, setCityParam] = useState(location.state?.city);
+  // const [cityParam, setCityParam] = useState(location.state?.city);
 
   const [leases, setLeases] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,14 +76,15 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         // caching
         localStorage.setItem('leases', JSON.stringify(data.response));
 
-      } catch (error) {
+      }catch(error){
         console.error("Error fetching leases:", error);
+
       }
-    }
-    if (!cityParam && !clearFilters) {
+    };
+    if (!city && !clearFilters) {
       fetchLeases();
     }
-  }, [clearFilters]);
+  }, [clearFilters, city]);
   useEffect(() => {
     async function fetchLeasesWithFilters() {
       try {
@@ -134,9 +135,9 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         console.error("Error fetching leases:", error);
       }
     }
-    if (cityParam) {
+    if (city) {
       console.log("reached here");
-      setCityParam(null);
+      setCity(null);
       fetchLeasesWithFilters();
       setApplyFilters(false);
       resetFiltersForm();
