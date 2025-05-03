@@ -58,7 +58,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   useEffect(() => {
     async function fetchLeases() {
       try {
-        let link = "/leases";
+        let link = "https://aptrelease-server.onrender.com/leases";
         
         // caching
         const cachedLeases = localStorage.getItem('leases');
@@ -68,19 +68,21 @@ const LeasesList = ({ navigateToApartmentPage }) => {
         }
 
         let response = await fetch(link);
+        console.log('leases catch client:', response)
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }
         const data = await response.json();
-        setLeases(data.response);
+        console.log("data:", data)
+        //setLeases(data.response);
+        setLeases(data);
         // caching
         localStorage.setItem('leases', JSON.stringify(data.response));
 
-      }catch(error){
+      } catch (error) {
         console.error("Error fetching leases:", error);
-
       }
-    };
+    }
     if (!city && !clearFilters) {
       fetchLeases();
     }
@@ -88,7 +90,7 @@ const LeasesList = ({ navigateToApartmentPage }) => {
   useEffect(() => {
     async function fetchLeasesWithFilters() {
       try {
-        let link = `/leases/`;
+        let link = `https://aptrelease-server.onrender.com/leases/`;
 
         const cacheKey = `leases:${city || ''}:${furnishing || ''}:${bedroomCount}:${rentValues[0]}:${rentValues[1]}:${bathroomCount}`;
 

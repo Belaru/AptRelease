@@ -25,7 +25,7 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
 
     const handleLogin = async (response) => {
         try {
-          const res = await fetch('/login', {
+          const res = await fetch('https://aptrelease-server.onrender.com/login', {
             method: 'POST',
             body: JSON.stringify({
               idToken: response.credential,
@@ -58,7 +58,7 @@ export default function Profil({navigateToPostListing, navigateToApartmentPage})
     
       const handleLogout = async () => {
         try {
-          const response = await fetch('/logout', {
+          const response = await fetch('https://aptrelease-server.onrender.com/logout', {
             method: 'DELETE',
           });
     

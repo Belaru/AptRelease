@@ -203,7 +203,7 @@ export default function ApartmentPage() {
 
 async function removeRelease(id){
     try {
-        await fetch('/leaseDelete/' + id, {
+        await fetch('https://aptrelease-server.onrender.com/leaseDelete/' + id, {
             method: 'DELETE', 
             headers: {
                 'Content-Type': 'application/json' 
@@ -219,7 +219,7 @@ async function removeRelease(id){
 
 async function reportRelease(id){
     try {
-        await fetch('/leaseReport/' + id, {
+        await fetch('https://aptrelease-server.onrender.com/leaseReport/' + id, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json' 
