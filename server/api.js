@@ -1,5 +1,4 @@
 const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 const path = require('path');
 const compression = require('compression');
@@ -51,11 +50,6 @@ app.use(
     })
 );
 
-app.use (createProxyMiddleware({
-    target: 'http://localhost:3200',
-    changeOrigin: true,
-})
-);
 
 // Used to salt the hash---change periodically
 // resave, saveunitialized??
