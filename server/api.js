@@ -54,7 +54,7 @@ app.use(
 app.use (createProxyMiddleware({
     target: 'http://localhost:3200',
     changeOrigin: true,
-  });
+})
 );
 
 // Used to salt the hash---change periodically
