@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const { leases, users } = require('./schemas');
 
 let instance;
+mongoose.set('debug', true);
 
 /**
  * Represents a MongoDB database connection.
@@ -21,16 +22,33 @@ class DB{
     }
 
     async connect() {
+
+
         if (instance.db) {
             return;
         }
-        await mongoose.connect(dbUrl);
-        instance.db = mongoose.connection;
-        instance.db.on('error', console.error.bind(console, 'connection error:'));
-        instance.db.once('open', function () {
-            // eslint-disable-next-line no-console
-            console.log('Successfully connected to MongoDB database ');
+        // await mongoose.connect(dbUrl);
+        // instance.db = mongoose.connection;
+        // instance.db.on('error', console.error.bind(console, 'connection error:'));
+        // instance.db.once('open', function () {
+        //     // eslint-disable-next-line no-console
+        //     console.log('Successfully connected to MongoDB database ');
+        // });
+        // Attach error listener BEFORE calling connect
+        mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+        mongoose.connection.once('open', () => {
+            console.log('Successfully connected to MongoDB database');
         });
+
+        try {
+            await mongoose.connect(dbUrl, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            });
+            instance.db = mongoose.connection;
+        } catch (err) {
+            console.error('Failed to connect to MongoDB:', err);
+        }
     }
 
     async close() {
@@ -61,6 +79,7 @@ class DB{
         try{
             await this.connect();
             const apartmentList = await leases.find({}).select('-__v');
+            console.log('all leases catch db:', apartmentList);
             return apartmentList;
         } catch (error) {
             console.error('An error occurred while retrieving leases:', error);
@@ -70,6 +89,7 @@ class DB{
         try{
             await this.connect();
             const filterList = await leases.distinct(filter);
+            console.log('filter leases catch db:', filterList);
             return filterList;
         } catch (error) {
             console.error('An error occurred while retrieving leases:', error);
@@ -84,6 +104,7 @@ class DB{
             }
             const query = this.leaseQuery(city, area, filters);
             const releases = await leases.find(query).select('-__v');
+            console.error('Filter Rs:', releases);
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving leasess:', error);
@@ -123,6 +144,7 @@ class DB{
                 $lte: filters.size.maximum
             };
         }
+        console.error('Query Rs:', query);
         return query;
     }
 
@@ -162,6 +184,7 @@ class DB{
         try {
             await this.connect();
             const lease = await leases.findById(leaseId);
+            console.error('ID Rs:', lease);
             return lease;
         } catch (error) {
             console.error('An error occurred while finding lease by ID:', error);

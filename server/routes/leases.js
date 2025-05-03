@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
         if (!data){
             const db = new DB();
             data =  await db.getAllLeases();
+            console.log('all leases catch api-leases:', data);
             cache.put(`leases`, JSON.stringify(data));
         }
         res.json({'response':data});
@@ -85,6 +86,7 @@ router.get('/:city', async (req, res) => {
                 furnishing, bathrooms, bedrooms });
             
             // cache the data
+            console.log('filter leases catch api-leases:', data);
             cache.put(cacheKey, JSON.stringify(data), 2592000);
         }
         res.json({'response':data});

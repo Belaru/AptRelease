@@ -1,4 +1,6 @@
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const cors = require('cors');
 const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
@@ -21,6 +23,8 @@ __filename || typeof require !== 'undefined' && require('url').fileURLToPath || 
 
 const app = express();
 
+app.use(cors());
+app.use(express.static(path.join(__dirname, 'client/build')));
 // Add middleware to serve static files
 app.use(
     express.static(path.join(path.dirname(_filename), '..', 'client', 'build'), {
@@ -47,6 +51,12 @@ app.use(
     })
 );
 
+app.use (createProxyMiddleware({
+    target: 'http://localhost:3200',
+    changeOrigin: true,
+  });
+);
+
 // Used to salt the hash---change periodically
 // resave, saveunitialized??
 app.use(session({
@@ -64,7 +74,6 @@ app.use('/leaseUpload/', leaseUploadRouter);
 app.use('/leaseReport/', leaseReport);
 app.use('/leaseDelete/', leaseDelete);
 app.use('/userProfile/', userProfileRouter);
-
 
 /**
  * Swagger
