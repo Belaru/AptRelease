@@ -1,96 +1,16 @@
 const fs = require('fs');
-const azureConnection = process.env.AZURE_CONNECTION;
-const azureContainerName = process.env.AZURE_CONTAINER_NAME;
+const path = require('path');
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
 
 cloudinary.config({
-    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-    apiKey: process.env.CLOUDINARY_API_KEY,
-    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    'cloud_name':'dac8yh55i',
+    'api_key':'448741385923774',
+    'api_secret':'ULiGTg2oqiNJpMBGHassUD6Mw5k',
+    secure: true
 });
 
-
-async function getImageUrls(getContainerClient, uploadService,
-    interiorFolderPath = 'data/images/interior', extrasFolderPath = 'data/images/extras') {
-    const containerClient = getContainerClient();
-
-    const interiorUrls = [];
-    const extrasUrls = []; 
-    let completed = 0;
-    
-    return new Promise((resolve, reject) => {
-        function checkCompletion() {
-            completed++;
-            if (completed === 2) {
-                resolve({ interior: interiorUrls, extras: extrasUrls });
-            }
-        }
-
-        fs.readdir(interiorFolderPath, async (err, files) => {
-            if (err) {
-                console.error('Error reading folder:', err);
-                reject(err);
-                return;
-            }
-
-            const uploadPromises = [];
-
-            for (const file of files) {
-                // Skip .DS_Store files
-                if (file === '.DS_Store') {
-                    continue;
-                }
-
-                const filePath = `${interiorFolderPath}/${file}`;
-
-
-                // Wrap the asynchronous operation inside a function and push it to uploadPromises
-                const uploadPromise = (async () => {
-                    const url = await uploadService(filePath, containerClient, file);
-                    interiorUrls.push(url);
-                })();
-
-                uploadPromises.push(uploadPromise);
-            }
-            await Promise.all(uploadPromises);
-            checkCompletion();
-        });
-
-        fs.readdir(extrasFolderPath, async (err, files) => {
-            if (err) {
-                console.error('Error reading extras folder:', err);
-                reject(err);
-                return;
-            }
-
-            const uploadPromises = [];
-
-            for (const file of files) {
-                if (file === '.DS_Store') {
-                    continue;
-                }
-
-                const filePath = `${extrasFolderPath}/${file}`;
-
-                const uploadPromise = (async () => {
-                    const url = await uploadService(filePath, containerClient, file);
-                    extrasUrls.push(url);
-                })();
-
-                uploadPromises.push(uploadPromise);
-            }
-            await Promise.all(uploadPromises);
-            checkCompletion();
-        });
-
-    });
-}
-
-function getContainerClient(){
-    const blobService = BlobServiceClient.fromConnectionString(azureConnection);
-    return blobService.getContainerClient(azureContainerName);
-}
-
+// Upload the image to Cloudinary
 async function uploadService(filePath, folder) {
     try {
         const result = await cloudinary.uploader.upload(filePath, {
@@ -99,8 +19,34 @@ async function uploadService(filePath, folder) {
         });
         return result.secure_url;
     } catch (error) {
-        console.error(`Error uploading "${filePath}" to Cloudinary:`, error.message);
+        console.error(`❌ Error uploading "${filePath}":`, error.message);
         return null;
     }
 }
-module.exports = {getImageUrls, getContainerClient, uploadService};
+
+// Get image URLs from the given folders and upload them to Cloudinary
+async function getImageUrls(interiorFolderPath = 'data/images/interior', 
+    extrasFolderPath = 'data/images/extras') {
+    const interiorUrls = [];
+    const extrasUrls = [];
+
+    async function processFolder(folderPath, folderName, urlList) {
+        const files = fs.readdirSync(folderPath);
+        for (const file of files) {
+            if (file === '.DS_Store') continue;
+            const filePath = path.join(folderPath, file);
+            const url = await uploadService(filePath, folderName);
+            if (url) urlList.push(url);
+        }
+    }
+
+    // Upload images from both the interior and extras folders
+    await Promise.all([
+        processFolder(interiorFolderPath, 'interior', interiorUrls),
+        processFolder(extrasFolderPath, 'extras', extrasUrls),
+    ]);
+
+    return { interior: interiorUrls, extras: extrasUrls };
+}
+
+module.exports = { getImageUrls };
