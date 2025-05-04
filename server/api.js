@@ -13,12 +13,13 @@ const { coordinatesRouter} = require('./routes/coordinates.js');
 const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
 const {userProfileRouter} = require('./routes/user-profile.js');
+const cors = require('cors');
 
   
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
 
-
+app.use(cors());
 const app = express();
 app.use(express.static(path.join(__dirname, 'client/build')));
 // Add middleware to serve static files
