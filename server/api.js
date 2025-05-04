@@ -27,6 +27,7 @@ var allowCrossDomain = function(req, res, next) {
     next();  
 };
 app.use(allowCrossDomain);
+console.log('✅ CORS enabled');
 const app = express();
 app.use(express.static(path.join(__dirname, 'client/build')));
 // Add middleware to serve static files
