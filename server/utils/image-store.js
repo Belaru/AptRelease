@@ -1,7 +1,13 @@
 const fs = require('fs');
 const azureConnection = process.env.AZURE_CONNECTION;
 const azureContainerName = process.env.AZURE_CONTAINER_NAME;
-const { BlobServiceClient} = require('@azure/storage-blob');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
+});
 
 
 async function getImageUrls(getContainerClient, uploadService,
@@ -85,15 +91,16 @@ function getContainerClient(){
     return blobService.getContainerClient(azureContainerName);
 }
 
-async function uploadService(filePath, containerClient, file){
+async function uploadService(filePath, folder) {
     try {
-        const blobClient = containerClient.getBlockBlobClient(file);
-        const fileData = fs.readFileSync(filePath);
-        const options = { blobHTTPHeaders: { blobContentType: 'image/webp' } };
-        await blobClient.uploadData(fileData, options);
-        return blobClient.url;
+        const result = await cloudinary.uploader.upload(filePath, {
+            folder,
+            resourceType: 'image/webp',
+        });
+        return result.secure_url;
     } catch (error) {
-        console.error('Error uploading file (extras):', error.message);
+        console.error(`Error uploading "${filePath}" to Cloudinary:`, error.message);
+        return null;
     }
 }
 module.exports = {getImageUrls, getContainerClient, uploadService};
