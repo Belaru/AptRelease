@@ -2,24 +2,28 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
 const {getRandomAddressCityPair, getRandomPrice, getRandomDate, shuffleArray} = require('./utils');
-const {getContainerClient, uploadService} = require('./image-store');
+
 // for images, every lease gets 2 from interior and 3 from extras
 
-async function getAllLeases(getImageUrls, 
+async function getAllLeases(
+    getImageUrls,
     readCsvFile,
     reArrangeData,
     filePath = 'data/House_Rent_Dataset.csv'
 ) {
     try {
-        // retrived images' url from blob storage
-        // images from interior and extras, each lease has 2 interior and 2 extras
-        const {interior, extras} = await getImageUrls(getContainerClient, uploadService);
-        
-        const data = await readCsvFile(filePath, 
-            getRandomDate, 
-            getRandomAddressCityPair, 
-            getRandomPrice);
+        // Retrieve images' URLs from Cloudinary
+        const { interior, extras } = await getImageUrls(); 
 
+        // Read and process the CSV data
+        const data = await readCsvFile(
+            filePath,
+            getRandomDate,
+            getRandomAddressCityPair,
+            getRandomPrice
+        );
+
+        // Rearrange the data and assign image URLs to each lease
         const arrangedData = reArrangeData(data, interior, extras, shuffleArray);
 
         return arrangedData;
@@ -28,8 +32,9 @@ async function getAllLeases(getImageUrls,
     }
 }
 
+// Rearranging function for adding images
 function reArrangeData(data, interior, extras, shuffleArray) {
-    // randomize images
+    // Randomize images
     shuffleArray(interior);
     shuffleArray(extras);
 
@@ -59,6 +64,7 @@ function reArrangeData(data, interior, extras, shuffleArray) {
             newImageUrls.push(extras[extrasIndex]);
             extrasIndex++;
         }
+
         // Update the image field in the item object
         item.images = newImageUrls;
     }
@@ -66,10 +72,13 @@ function reArrangeData(data, interior, extras, shuffleArray) {
     return data;
 }
 
-async function readCsvFile(filePath, 
-    getRandomDate, 
-    getRandomAddressCityPair, 
-    getRandomPrice) {
+// Reading CSV file and transforming it to objects
+async function readCsvFile(
+    filePath,
+    getRandomDate,
+    getRandomAddressCityPair,
+    getRandomPrice
+) {
     return new Promise((resolve, reject) => {
         const results = [];
         const inputStream = fs.createReadStream(filePath, 'utf8');
@@ -82,36 +91,34 @@ async function readCsvFile(filePath,
                     parseBooleans: true,
                     trim: true,
                 })
-            ).
-            on('data', (row) => {
+            )
+            .on('data', (row) => {
                 if (isFirstRow) {
                     isFirstRow = false;
                 } else {
-                    // posted date is randomized from 2024 dates till now
                     const randomPostedDate = getRandomDate();
                     const randomAddressCityPair = getRandomAddressCityPair();
                     const randomPrice = getRandomPrice(row[1]);
                     const customizedObject = {
-                        'postedDate': randomPostedDate, 
-                        'bhk': row[1],
-                        'rentPrice': randomPrice,
-                        'size': row[3],
-                        'floor': row[4],
-                        'address': randomAddressCityPair.address,
-                        'city': randomAddressCityPair.city,
-                        'furnishing': row[8],
-                        'preferredTentant': row[9],
-                        'bathroom': row[10],
-                        'pointOfContact': row[11],
-                        'description': null,
-                        'images': null,
-                        'reports': 0
+                        postedDate: randomPostedDate,
+                        bhk: row[1],
+                        rentPrice: randomPrice,
+                        size: row[3],
+                        floor: row[4],
+                        address: randomAddressCityPair.address,
+                        city: randomAddressCityPair.city,
+                        furnishing: row[8],
+                        preferredTentant: row[9],
+                        bathroom: row[10],
+                        pointOfContact: row[11],
+                        description: null,
+                        images: null,
+                        reports: 0,
                     };
                     results.push(customizedObject);
                 }
             })
             .on('end', () => {
-                
                 resolve(results);
             })
             .on('error', (error) => {
@@ -120,5 +127,4 @@ async function readCsvFile(filePath,
     });
 }
 
-
-module.exports = {getAllLeases, shuffleArray, reArrangeData, readCsvFile};
+module.exports = { getAllLeases, shuffleArray, reArrangeData, readCsvFile };

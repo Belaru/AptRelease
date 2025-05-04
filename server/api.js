@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
 const compression = require('compression');
 const fileUpload = require('express-fileupload');
@@ -21,8 +20,6 @@ __filename || typeof require !== 'undefined' && require('url').fileURLToPath || 
 
 
 const app = express();
-
-app.use(cors());
 app.use(express.static(path.join(__dirname, 'client/build')));
 // Add middleware to serve static files
 app.use(

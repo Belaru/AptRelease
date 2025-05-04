@@ -79,7 +79,6 @@ class DB{
         try{
             await this.connect();
             const apartmentList = await leases.find({}).select('-__v');
-            console.log('all leases catch db:', apartmentList);
             return apartmentList;
         } catch (error) {
             console.error('An error occurred while retrieving leases:', error);
@@ -89,7 +88,6 @@ class DB{
         try{
             await this.connect();
             const filterList = await leases.distinct(filter);
-            console.log('filter leases catch db:', filterList);
             return filterList;
         } catch (error) {
             console.error('An error occurred while retrieving leases:', error);
@@ -104,7 +102,6 @@ class DB{
             }
             const query = this.leaseQuery(city, area, filters);
             const releases = await leases.find(query).select('-__v');
-            console.error('Filter Rs:', releases);
             return releases;
         } catch (error) {
             console.error('An error occurred while retrieving leasess:', error);
@@ -144,7 +141,6 @@ class DB{
                 $lte: filters.size.maximum
             };
         }
-        console.error('Query Rs:', query);
         return query;
     }
 

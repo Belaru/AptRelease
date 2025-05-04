@@ -15,18 +15,13 @@ const logger = debug('server:seeded database');
         // passing these for testing
         const data = await getAllLeases(getImageUrls, readCsvFile, reArrangeData);
         await db.createManyLeases(data);
-        logger('data seeded', data);
-        logger('seeded database');
-
-
+        // logger('data seeded', data);
+        // logger('seeded database');
         // Close the database connection (if your DB class supports this)
         await db.close();
-
-        // Exit the program with a success code (0)
         process.exit(0);
     } catch (e) {
         console.error('Could not connect or insert data:', e);
-        // Exit the program with an error code (1)
         process.exit(1);
     }
 })();
