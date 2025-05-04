@@ -29,7 +29,10 @@ const LeaseMap = ({ address }) => {
   useEffect(() => {
     async function fetchCoordinate() {
       try {
-        let response = await fetch(`https://aptrelease-server.onrender.com/coordinate/${address}`);
+        let response = await fetch(`https://aptrelease-server.onrender.com/coordinate/${address}`,, {
+          method: 'GET',
+          mode: 'cors',
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
         }

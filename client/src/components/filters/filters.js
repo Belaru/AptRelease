@@ -30,7 +30,10 @@ const Filters = ({
   const { t } = useTranslation();
   const fetchCities = async () => {
     try {
-      let response = await fetch("https://aptrelease-server.onrender.com/filters/city");
+      let response = await fetch("https://aptrelease-server.onrender.com/filters/city", {
+        method: 'GET',
+        mode: 'cors',
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch leases");
       }

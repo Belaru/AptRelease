@@ -113,6 +113,7 @@ export default function PostListing() {
         method: 'POST',
         headers: {},
         body: formData,
+        mode: 'cors'
       });
 
       alert('Submitted successfully');

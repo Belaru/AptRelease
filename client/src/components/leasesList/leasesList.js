@@ -67,7 +67,10 @@ const LeasesList = ({ navigateToApartmentPage }) => {
           return; 
         }
 
-        let response = await fetch(link);
+        let response = await fetch(link, {
+          method: 'GET',
+          mode: 'cors',
+        });
         console.log('leases catch client:', response)
         if (!response.ok) {
           throw new Error("Failed to fetch leases");
