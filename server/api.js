@@ -5,6 +5,7 @@ const fileUpload = require('express-fileupload');
 const { OAuth2Client } = require('google-auth-library');
 const session = require('express-session');
 const {DB} = require('./db/db.js');
+const cors = require('cors');
 
 const { leasesRouter } = require('./routes/leases.js');
 const { leaseUploadRouter } = require('./routes/lease-upload.js');
