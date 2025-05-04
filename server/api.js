@@ -14,12 +14,19 @@ const {leaseReport} = require('./routes/lease-reports.js');
 const {leaseDelete} = require('./routes/lease-delete.js');
 const {userProfileRouter} = require('./routes/user-profile.js');
 const cors = require('cors');
-
   
 const _filename = 
 __filename || typeof require !== 'undefined' && require('url').fileURLToPath || '';
 
 app.use(cors());
+app.options('*', cors());
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();  
+};
+app.use(allowCrossDomain);
 const app = express();
 app.use(express.static(path.join(__dirname, 'client/build')));
 // Add middleware to serve static files
