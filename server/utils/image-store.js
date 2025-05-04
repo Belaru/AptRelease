@@ -1,12 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 
 cloudinary.config({
-    'cloud_name':'dac8yh55i',
-    'api_key':'448741385923774',
-    'api_secret':'ULiGTg2oqiNJpMBGHassUD6Mw5k',
+    'cloud_name':process.env.CLOUDINARY_CLOUD_NAME,
+    'api_key':process.env.CLOUDINARY_API_KEY,
+    'api_secret':process.env.CLOUDINARY_API_SECRET,
     secure: true
 });
 
