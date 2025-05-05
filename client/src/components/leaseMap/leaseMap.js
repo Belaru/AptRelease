@@ -34,7 +34,7 @@ const LeaseMap = ({ address }) => {
           mode: 'cors',
         });
         if (!response.ok) {
-          throw new Error("Failed to fetch leases");
+          throw new Error(`Fetch failed: ${response.status} ${response.statusText}.`);
         }
         const data = await response.json();
         setLeaseCoordinates(data.coordinates);
