@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
+const mapboxToken = process.env.MAPBOX_TOKEN;
 
 router.get('/:address', async (req, res) => {
     try{
