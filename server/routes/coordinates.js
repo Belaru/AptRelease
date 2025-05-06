@@ -9,6 +9,7 @@ router.get('/:address', async (req, res) => {
         // eslint-disable-next-line max-len
         const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?proximity=ip&access_token=${mapboxToken}`);
         const data = await response.json();
+        console.log('map data:', data);
         res.json({'coordinates':data.features[0].geometry.coordinates});
       
     }catch(err){
